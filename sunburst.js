@@ -51,7 +51,7 @@ const svg = d3.select('body').append('svg')
     .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
     .on('click', () => focusOn()); // Reset zoom on canvas click
 
-    d3.json('flare.json', (error, root) => {
+    d3.json('mouse.json', (error, root) => {
     if (error) throw error;
 
     root = d3.hierarchy(root);
@@ -144,9 +144,23 @@ function focusOn(d = { x0: 0, x1: 1, y0: 0, y1: 1 }) {
 }
 
 function display(d){
-    d3.select("#test1").text(d.data.name.split(':')[0]);
-    d3.select("#test2").text(d.data.name.split(':')[1]);
-    d3.select("#test3").text(d.data.tf);
+    // time point
+    d3.select("#timepoint").text(d.data.name.split(':')[0]);
+    // annotation (cell type)
+    d3.select("#annotation").text(d.data.name.split(':')[1]);
+    // reference (which data set)
+    d3.select("#datset").text(d.data.datset);
+    // cell number
+    d3.select("#cellnum").text(d.data.cellnum);
+    // ancestor
+    d3.select("#ancestor").text(d.data.ancestor);
+    // derivator
+    d3.select("#derivator").text(d.data.derivator);
+    // marker
+    d3.select("#marker").text(d.data.marker);
+    // tf
+    d3.select("#tf").text(d.data.tf);
+    
     d3.select("#display").style("visibility", "");
     d3.select("#display_table th").style("background-color", color((d.children ? d : d.parent).data.name));
 }
